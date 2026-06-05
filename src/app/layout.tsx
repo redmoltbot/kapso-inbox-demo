@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Auto WhatsApp",
-  description: "AI-powered WhatsApp inbox",
+  title: "WhatsApp Demo",
+  description: "WhatsApp inbox demo",
 };
 
 export default function RootLayout({

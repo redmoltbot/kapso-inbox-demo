@@ -39,7 +39,7 @@ export function ConversationList({
   return (
     <div className="flex flex-col h-full border-r border-gray-200">
       <div className="p-4 border-b border-gray-200 bg-[#15803d]">
-        <h1 className="text-white font-semibold text-lg">Auto WhatsApp</h1>
+        <h1 className="text-white font-semibold text-lg">WhatsApp Demo</h1>
       </div>
       <ScrollArea className="flex-1">
         {conversations.length === 0 && (
