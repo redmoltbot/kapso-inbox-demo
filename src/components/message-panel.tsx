@@ -83,7 +83,7 @@ export function MessagePanel({ conversationId, initialMessages }: MessagePanelPr
                 className={cn(
                   'max-w-[70%] rounded-lg px-3 py-2 shadow-sm',
                   isOutbound
-                    ? 'bg-[#25D366] text-white rounded-br-none'
+                    ? 'bg-[#15803d] text-white rounded-br-none'
                     : 'bg-gray-100 text-gray-900 rounded-bl-none',
                 )}
               >

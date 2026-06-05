@@ -63,7 +63,7 @@ export function MessageInput({ conversationId, onSent }: MessageInputProps) {
       <Button
         onClick={send}
         disabled={!text.trim() || sending}
-        className="bg-[#25D366] hover:bg-[#1ebe5d] text-white shrink-0"
+        className="bg-[#15803d] hover:bg-[#166534] text-white shrink-0"
         size="icon"
         aria-label="Send message"
       >
