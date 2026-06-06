@@ -50,7 +50,7 @@ export function MessageInput({ conversationId, onSent }: MessageInputProps) {
   }
 
   return (
-    <div className="flex items-center gap-2 p-3 border-t border-gray-200 bg-gray-50">
+    <div className="flex items-center gap-2 p-3 border-t border-border bg-card">
       <Input
         ref={inputRef}
         value={text}
@@ -58,12 +58,13 @@ export function MessageInput({ conversationId, onSent }: MessageInputProps) {
         onKeyDown={handleKeyDown}
         placeholder="Type a message…"
         disabled={sending}
-        className="flex-1 bg-white"
+        className="flex-1"
       />
       <Button
         onClick={send}
         disabled={!text.trim() || sending}
-        className="bg-[#15803d] hover:bg-[#166534] text-white shrink-0"
+        className="text-primary-foreground shrink-0"
+        style={{ backgroundColor: 'var(--cffy-theme-primary-a20)' }}
         size="icon"
         aria-label="Send message"
       >

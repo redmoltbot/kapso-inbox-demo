@@ -5,7 +5,7 @@ import { ConversationList, Conversation } from '@/components/conversation-list'
 import { MessagePanel, Message } from '@/components/message-panel'
 import { MessageInput } from '@/components/message-input'
 import { getBrowserClient } from '@/lib/supabase-browser'
-import { Menu } from 'lucide-react'
+import { Menu, Moon, Sun } from 'lucide-react'
 
 export default function InboxPage() {
   const [conversations, setConversations] = useState<Conversation[]>([])
@@ -13,6 +13,26 @@ export default function InboxPage() {
   const [messages, setMessages] = useState<Message[]>([])
   const [loadingMessages, setLoadingMessages] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    const isDarkMode = localStorage.getItem('theme') === 'dark'
+    setIsDark(isDarkMode)
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark')
+    }
+  }, [])
+
+  function toggleTheme() {
+    const newDark = !isDark
+    setIsDark(newDark)
+    localStorage.setItem('theme', newDark ? 'dark' : 'light')
+    if (newDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }
 
   const loadConversations = useCallback(async () => {
     const res = await fetch('/api/conversations')
@@ -76,7 +96,7 @@ export default function InboxPage() {
       {/* Conversation sidebar — drawer on mobile, static column on md+ */}
       <div
         className={[
-          'fixed inset-y-0 left-0 z-40 flex flex-col bg-white shadow-xl',
+          'fixed inset-y-0 left-0 z-40 flex flex-col bg-card shadow-xl',
           'w-72 transition-transform duration-300 ease-in-out',
           drawerOpen ? 'translate-x-0' : '-translate-x-full',
           'md:static md:translate-x-0 md:z-auto md:shadow-none md:w-80 md:shrink-0 md:transition-none',
@@ -93,19 +113,28 @@ export default function InboxPage() {
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {selectedId ? (
           <>
-            <div className="px-3 py-3 border-b border-gray-200 bg-white shadow-sm flex items-center gap-2">
+            <div className="px-3 py-3 border-b border-border bg-card shadow-sm flex items-center gap-2 justify-between">
+              <div className="flex items-center gap-2 min-w-0">
+                <button
+                  className="md:hidden p-1.5 rounded hover:bg-muted text-muted-foreground shrink-0"
+                  onClick={() => setDrawerOpen(true)}
+                  aria-label="Open conversations"
+                >
+                  <Menu className="h-5 w-5" />
+                </button>
+                <p className="font-medium text-foreground truncate text-sm">{selectedId}</p>
+              </div>
               <button
-                className="md:hidden p-1.5 rounded hover:bg-gray-100 text-gray-600 shrink-0"
-                onClick={() => setDrawerOpen(true)}
-                aria-label="Open conversations"
+                className="p-1.5 rounded hover:bg-muted text-muted-foreground shrink-0"
+                onClick={toggleTheme}
+                aria-label="Toggle theme"
               >
-                <Menu className="h-5 w-5" />
+                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </button>
-              <p className="font-medium text-gray-900 truncate text-sm">{selectedId}</p>
             </div>
 
             {loadingMessages ? (
-              <div className="flex-1 flex items-center justify-center text-gray-400 text-sm">
+              <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm">
                 Loading…
               </div>
             ) : (
@@ -122,12 +151,13 @@ export default function InboxPage() {
             />
           </>
         ) : (
-          <div className="flex-1 flex flex-col items-center justify-center gap-4 text-gray-400 text-sm">
+          <div className="flex-1 flex flex-col items-center justify-center gap-4 text-muted-foreground text-sm">
             <p className="hidden md:block">Select a conversation to start messaging</p>
             <div className="md:hidden flex flex-col items-center gap-3">
               <p>No conversation selected</p>
               <button
-                className="px-4 py-2 bg-[#15803d] text-white rounded-lg text-sm font-medium"
+                className="px-4 py-2 text-primary-foreground rounded-lg text-sm font-medium hover:opacity-90"
+                style={{ backgroundColor: 'var(--cffy-theme-primary-a20)' }}
                 onClick={() => setDrawerOpen(true)}
               >
                 Open Conversations

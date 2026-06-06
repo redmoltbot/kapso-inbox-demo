@@ -82,9 +82,14 @@ export function MessagePanel({ conversationId, initialMessages }: MessagePanelPr
                 className={cn(
                   'max-w-[70%] rounded-lg px-3 py-2 shadow-sm',
                   isOutbound
-                    ? 'bg-[#15803d] text-white rounded-br-none'
-                    : 'bg-gray-100 text-gray-900 rounded-bl-none',
+                    ? 'text-foreground rounded-br-none'
+                    : 'bg-muted text-foreground rounded-bl-none',
                 )}
+                style={
+                  isOutbound
+                    ? { backgroundColor: 'var(--cffy-theme-primary-a20)' }
+                    : {}
+                }
               >
                 <p className="text-sm whitespace-pre-wrap break-words">
                   {msg.body ?? '(no text)'}
