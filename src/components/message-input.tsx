@@ -63,8 +63,8 @@ export function MessageInput({ conversationId, onSent }: MessageInputProps) {
       <Button
         onClick={send}
         disabled={!text.trim() || sending}
-        className="text-primary-foreground shrink-0"
-        style={{ backgroundColor: 'var(--cffy-theme-primary-a20)' }}
+        className="text-white shrink-0"
+        style={{ backgroundColor: '#299963' }}
         size="icon"
         aria-label="Send message"
       >
